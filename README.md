@@ -34,6 +34,7 @@ A local server gives this folder its own saved encounter. Opening `index.html` d
 - `app.js` is the encounter: sorting, hit points, turns, validation, and saving.
 - `README.md` is these instructions.
 - `LICENSE` is the MIT License instructions.
+- `.gitignore` keeps this repo clean.
 
 ## Using it
 
