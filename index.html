@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Rollkeeper</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <p id="turn-announcement" class="visually-hidden" aria-live="polite"></p>
+
+    <div class="stage">
+      <div class="window">
+        <div class="frame-gems" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <header class="window-header">
+          <p class="eyebrow">Initiative</p>
+          <h1>Rollkeeper</h1>
+          <p class="lede">Highest initiative acts first. Advance the turn when they have acted.</p>
+        </header>
+
+        <div class="command-bar">
+          <div class="command-status">
+            <p class="round-line">Round <strong id="round-number">1</strong></p>
+            <p class="acting-line">
+              <span class="acting-kicker">Now acting</span>
+              <strong id="acting-name">No one yet</strong>
+            </p>
+          </div>
+          <div class="mast-actions">
+            <button type="button" class="button button-primary" id="next-turn">Next Turn</button>
+            <button type="button" class="button button-secondary" id="reset-encounter">Reset Encounter</button>
+          </div>
+        </div>
+
+        <p id="storage-note" class="banner" role="status" hidden></p>
+
+        <main class="window-body">
+          <section class="composer" aria-labelledby="add-heading">
+            <h2 id="add-heading">Add a combatant</h2>
+            <form id="add-form" novalidate>
+              <div class="field">
+                <label for="combatant-name">Name</label>
+                <input id="combatant-name" name="name" type="text" maxlength="40" autocomplete="off" spellcheck="false" required>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="combatant-initiative">Initiative</label>
+                  <input id="combatant-initiative" name="initiative" type="text" inputmode="text" autocomplete="off" required>
+                </div>
+                <div class="field">
+                  <label for="combatant-max-hp">Maximum HP</label>
+                  <input id="combatant-max-hp" name="maxHp" type="text" inputmode="numeric" autocomplete="off" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="combatant-current-hp">Current HP</label>
+                <input id="combatant-current-hp" name="currentHp" type="text" inputmode="numeric" autocomplete="off" aria-describedby="current-hp-hint">
+                <p id="current-hp-hint" class="hint">Leave blank to start at full health.</p>
+              </div>
+              <p id="form-error" class="form-error" role="alert"></p>
+              <button type="submit" class="button button-primary button-full">Add combatant</button>
+            </form>
+          </section>
+
+          <section class="roster" aria-labelledby="order-heading">
+            <div class="roster-heading">
+              <h2 id="order-heading">Turn order</h2>
+              <p class="hint">Matching scores keep whoever was added earlier ahead.</p>
+            </div>
+            <p id="empty-state" class="empty-state" hidden>No one is in this encounter. Add a combatant to begin.</p>
+            <ol id="combatant-list" class="combatant-list"></ol>
+          </section>
+        </main>
+
+        <footer class="colophon">
+          <p>This encounter is saved in this browser. Refresh the page and it will still be here.</p>
+        </footer>
+      </div>
+    </div>
+
+    <dialog id="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-description">
+      <h2 id="reset-title">Reset this encounter?</h2>
+      <p id="reset-description">
+        Every combatant will be removed and the round returns to 1.
+        This cannot be undone, and the sample encounter will not come back on refresh.
+      </p>
+      <form method="dialog" class="dialog-actions">
+        <button type="submit" class="button button-secondary" value="cancel">Keep encounter</button>
+        <button type="submit" class="button button-danger" value="confirm">Reset encounter</button>
+      </form>
+    </dialog>
+
+    <noscript>
+      <p class="banner banner-standalone">Rollkeeper needs JavaScript to track the encounter. Enable JavaScript and reload this page.</p>
+    </noscript>
+
+    <script src="app.js"></script>
+  </body>
+</html>
